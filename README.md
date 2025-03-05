@@ -1,4 +1,4 @@
-# Example Web Service
+# Django clean architecture
 
 Example REST web service for internet library with:
 

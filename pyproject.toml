@@ -1,0 +1,106 @@
+[tool.poetry]
+name = "library"
+version = "0.1.0"
+description = "Django clean architecture"
+authors = ["Rinat <galievr469@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.1.4"
+djangorestframework = "^3.15.2"
+psycopg2-binary = "^2.9.10"
+pydantic = {extras = ["email"], version = "^2.10.3"}
+dishka = "^1.4.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+pytest-django = "^4.9.0"
+pytest-asyncio = "^0.25.3"
+pytest-cov = "^5.0.0"
+coverage = "^7.6.10"
+mypy = "^1.10.0"
+ruff = "^0.4.9"
+factory-boy = "^3.3.3"
+pre-commit = "^3.7.1"
+dirty-equals = "^0.9.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+python_files = "test_*"
+python_functions = "test_*"
+python_classes = "TestSuite*"
+addopts = "-p no:cacheprovider"
+
+[tool.coverage.run]
+branch = true
+source = ["library"]
+command_line = "-m pytest"
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.xml]
+output = "coverage.xml"
+
+[tool.ruff]
+line-length = 88
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".ruff_cache",
+    ".venv",
+]
+indent-width = 4
+target-version = "py312"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+    "BLE",
+    "C90",
+    "E",
+    "F",
+    "G",
+    "I",
+    "ICN",
+    "ISC",
+    "PLE",
+    "Q",
+    "RUF006",
+    "RUF100",
+    "T10",
+    "T20",
+    "TID",
+    "UP",
+    "W",
+]
+ignore = ["ISC001"]
+fixable = ["ALL"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["library", "tests"]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+ignore_missing_imports = false
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = [
+    "py_expression_eval.*",
+    "botocore.*",
+    "django.*",
+    "rest_framework.*",
+]
+ignore_missing_imports = true
